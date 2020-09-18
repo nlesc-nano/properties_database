@@ -1,5 +1,5 @@
 ################################################################################
-ligands_database
+properties_database
 ################################################################################
 
 Database for the ligands molecular properties
@@ -10,12 +10,12 @@ The project setup is documented in `a separate document <project_setup.rst>`_. F
 Installation
 ------------
 
-To install ligands_database, do:
+To install properties_database, do:
 
 .. code-block:: console
 
-  git clone https://github.com/nlesc-nano/ligands_database.git
-  cd ligands_database
+  git clone https://github.com/nlesc-nano/properties_database.git
+  cd properties_database
   pip install .
 
 
@@ -36,7 +36,7 @@ Include a link to your project's full documentation here.
 Contributing
 ************
 
-If you want to contribute to the development of ligands_database,
+If you want to contribute to the development of properties_database,
 have a look at the `contribution guidelines <CONTRIBUTING.rst>`_.
 
 License

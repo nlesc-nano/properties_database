@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = ligands_database
+SPHINXPROJ    = properties_database
 SOURCEDIR     = .
 BUILDDIR      = _build
 
