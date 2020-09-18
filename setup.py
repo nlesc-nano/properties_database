@@ -4,13 +4,12 @@ import os
 
 from setuptools import setup
 
-here = os.path.abspath(os.path.dirname(__file__))
+HERE = os.path.abspath(os.path.dirname(__file__))
 
-# To update the package version number, edit CITATION.cff
-with open('CITATION.cff', 'r') as cff:
-    for line in cff:
-        if 'version:' in line:
-            version = line.replace('version:', '').strip().strip('"')
+version = {}
+with open(os.path.join(HERE, 'ligands_database', '__version__.py')) as f:
+    exec(f.read(), version)
+
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
