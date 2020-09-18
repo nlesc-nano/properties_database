@@ -32,31 +32,21 @@ setup(
     keywords='ligands_database',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers',
+        'Intended Audience :: Science/Research',
         'License :: OSI Approved :: Apache Software License',
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
-    test_suite='tests',
-    install_requires=[],  # FIXME: add your package's dependencies to this list
-    setup_requires=[
-        # dependency for `python setup.py test`
-        'pytest-runner',
-        # dependencies for `python setup.py build_sphinx`
-        'sphinx',
-        'sphinx_rtd_theme',
-        'recommonmark'
-    ],
-    tests_require=[
-        'pytest',
-        'pytest-cov',
-        'pycodestyle',
-    ],
+    install_requires=['pymongo', 'sqlalchemy'],
+    data_files=[('citation/ligands_database', ['CITATION.cff'])],
     extras_require={
-        'dev':  ['prospector[with_pyroma]', 'yapf', 'isort'],
-    },
-    data_files=[('citation/ligands_database', ['CITATION.cff'])]
+        'test': ['coverage', 'mypy', 'pycodestyle', 'pytest>=3.9', 'pytest-cov'
+                 ],
+        'doc': ['sphinx', 'sphinx-autodoc-typehints', 'sphinx_rtd_theme',
+                'nbsphinx']
+    }
+
 )
