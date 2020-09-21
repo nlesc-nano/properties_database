@@ -4,34 +4,13 @@ properties_database
 
 Database for the ligands molecular properties
 
-
-The project setup is documented in `a separate document <project_setup.rst>`_. Feel free to remove this document (and/or the link to this document) if you don't need it.
-
 Installation
-------------
+************
+1. Install `Docker <https://www.docker.com/>`_
+2. Start the mongodb image:
+::
+   docker run -d -p 27017-27019:27017-27019 --name mongodb mongo:latest
 
-To install properties_database, do:
-
-.. code-block:: console
-
-  git clone https://github.com/nlesc-nano/properties_database.git
-  cd properties_database
-  pip install .
-
-
-Run tests (including coverage) with:
-
-.. code-block:: console
-
-  python setup.py test
-
-
-Documentation
-*************
-
-.. _README:
-
-Include a link to your project's full documentation here.
 
 Contributing
 ************

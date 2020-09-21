@@ -38,7 +38,12 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
-    install_requires=['pymongo', 'sqlalchemy'],
+    entry_points={
+        'console_scripts': [
+            'call_database=properties_database.cli:main'
+        ]
+    },
+    install_requires=['pymongo'],
     data_files=[('citation/properties_database', ['CITATION.cff'])],
     extras_require={
         'test': ['coverage', 'mypy', 'pycodestyle', 'pytest>=3.9', 'pytest-cov'
