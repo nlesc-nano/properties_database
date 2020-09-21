@@ -3,7 +3,7 @@
 API
 ---
 .. autoclass:: DatabaseConfig
-.. autofunction:: store_in_db
+.. autofunction:: store_dataframe_in_mongo
 
 """
 
@@ -22,7 +22,7 @@ class DatabaseConfig(NamedTuple):
     port: Optional[int] = 27017
 
 
-def store_in_db(db_config: DatabaseConfig, collection_name: str, path_csv: str, clean: bool = True) -> List[int]:
+def store_dataframe_in_mongo(db_config: DatabaseConfig, collection_name: str, path_csv: str, clean: bool = True) -> List[int]:
     """Store a pandas dataframe in the database specified in `db_config`.
 
     Parameters
@@ -39,7 +39,6 @@ def store_in_db(db_config: DatabaseConfig, collection_name: str, path_csv: str, 
     List of the inserted objects indices
 
     """
-
     db = connect_to_db(db_config)
     collection = db[collection_name]
     df = read_data_from_csv(path_csv)

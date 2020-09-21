@@ -22,7 +22,7 @@ setup(
     author_email='f.zapata@esciencecenter.nl',
     url='https://github.com/nlesc-nano/properties_database',
     packages=[
-        'properties_database',
+        'properties_database'
     ],
     include_package_data=True,
     license="Apache Software License 2.0",
