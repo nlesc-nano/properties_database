@@ -44,6 +44,7 @@ def store_dataframe_in_mongo(db_config: DatabaseConfig, collection_name: str, pa
     df = read_data_from_csv(path_csv)
     if clean:
         df = sanitize_dataframe(df)
+
     return collection.insert_many(df.to_dict("records")).inserted_ids
 
 

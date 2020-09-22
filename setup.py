@@ -43,7 +43,7 @@ setup(
             'call_database=properties_database.cli:main'
         ]
     },
-    install_requires=['pymongo'],
+    install_requires=['pymongo', 'pyyaml>=5.1.1', 'schema'],
     data_files=[('citation/properties_database', ['CITATION.cff'])],
     extras_require={
         'test': ['coverage', 'mypy', 'pycodestyle', 'pytest>=3.9', 'pytest-cov'
