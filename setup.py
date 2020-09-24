@@ -34,7 +34,6 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
@@ -43,7 +42,7 @@ setup(
             'call_database=properties_database.cli:main'
         ]
     },
-    install_requires=['pymongo', 'pyyaml>=5.1.1', 'schema'],
+    install_requires=['pymongo', 'pyyaml>=5.1.1'],
     data_files=[('citation/properties_database', ['CITATION.cff'])],
     extras_require={
         'test': ['coverage', 'mypy', 'pycodestyle', 'pytest>=3.9', 'pytest-cov'

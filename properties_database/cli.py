@@ -5,7 +5,6 @@ import logging
 from argparse import Namespace
 from .interface.mongodb_interface import (DatabaseConfig,
                                           store_dataframe_in_mongo)
-from .jobs import create_jobs_from_collection                                    
 
 logger = logging.getLogger(__name__)
 

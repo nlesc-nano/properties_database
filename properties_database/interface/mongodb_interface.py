@@ -3,13 +3,15 @@
 API
 ---
 .. autoclass:: DatabaseConfig
+.. autofunction:: connect_to_db
 .. autofunction:: store_dataframe_in_mongo
 
 """
 
-from typing import List, NamedTuple, Optional
+from typing import Any, Iterable, List, NamedTuple, Optional
 
 from pymongo import MongoClient
+from pymongo.database import Database
 
 from ..dataframe import read_data_from_csv, sanitize_dataframe
 
@@ -20,6 +22,30 @@ class DatabaseConfig(NamedTuple):
     db_name: str
     host: Optional[str] = "localhost"
     port: Optional[int] = 27017
+
+
+def connect_to_db(db_config: DatabaseConfig) -> MongoClient:
+    """Connect to a mongodb using `db_config`.
+
+    Parameters
+    ----------
+    db_config
+        NamedTuple with the configuration to connect to the database
+
+    Returns
+    -------
+        MongoClient
+
+    """
+    client = MongoClient(db_config.host, db_config.port)
+
+    return client[db_config.db_name]
+
+
+def fetch_properties_from_collection(db: Database, collection_name: str) -> Iterable[Any]:
+    """Return the properties stored in a given collection."""
+    collection = db[collection_name]
+    return collection.find({})
 
 
 def store_dataframe_in_mongo(db_config: DatabaseConfig, collection_name: str, path_csv: str, clean: bool = True) -> List[int]:
@@ -46,11 +72,3 @@ def store_dataframe_in_mongo(db_config: DatabaseConfig, collection_name: str, pa
         df = sanitize_dataframe(df)
 
     return collection.insert_many(df.to_dict("records")).inserted_ids
-
-
-def connect_to_db(db_config: DatabaseConfig) -> MongoClient:
-    """Connect to a mongodb using `db_config`."""
-    client = MongoClient(db_config.host, db_config.port)
-    db = client[db_config.db_name]
-
-    return db
