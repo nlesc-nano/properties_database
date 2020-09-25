@@ -1,8 +1,8 @@
-.. image:: https://github.com/nlesc-nano/properties_database/workflows/build/badge.svg
-   :target: https://github.com/nlesc-nano/properties_database/actions
+.. image:: https://github.com/nlesc-nano/insilico-database/workflows/build/badge.svg
+   :target: https://github.com/nlesc-nano/insilico-database/actions
 
 ################################################################################
-properties_database
+insilico-database
 ################################################################################
 
 Database for the ligands molecular properties
@@ -18,7 +18,7 @@ Installation
 Contributing
 ************
 
-If you want to contribute to the development of properties_database,
+If you want to contribute to the development of insilico-database,
 have a look at the `contribution guidelines <CONTRIBUTING.rst>`_.
 
 License
