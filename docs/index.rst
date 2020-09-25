@@ -10,6 +10,7 @@ Welcome to properties_database's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   includereadme
 
 
 Indices and tables

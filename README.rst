@@ -1,3 +1,6 @@
+.. image:: https://github.com/nlesc-nano/properties_database/workflows/build/badge.svg
+   :target: https://github.com/nlesc-nano/properties_database/actions
+
 ################################################################################
 properties_database
 ################################################################################
