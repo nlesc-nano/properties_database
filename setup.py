@@ -6,7 +6,7 @@ from setuptools import setup
 HERE = os.path.abspath(os.path.dirname(__file__))
 
 version = {}
-with open(os.path.join(HERE, 'database', '__version__.py')) as f:
+with open(os.path.join(HERE, 'insilicodatabase', '__version__.py')) as f:
     exec(f.read(), version)
 
 
@@ -22,7 +22,7 @@ setup(
     author_email='f.zapata@esciencecenter.nl',
     url='https://github.com/nlesc-nano/insilico-database',
     packages=[
-        'database'
+        'insilicodatabase'
     ],
     include_package_data=True,
     license="Apache Software License 2.0",
@@ -39,11 +39,11 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'call_database=database.cli:main'
+            'call_database=insilicodatabase.cli:main'
         ]
     },
-    install_requires=['pymongo', 'pyyaml>=5.1.1'],
-    data_files=[('citation/insilico-database', ['CITATION.cff'])],
+    install_requires=['pandas', 'pymongo', 'pyyaml>=5.1.1'],
+    data_files=[('citation/insilicodatabase', ['CITATION.cff'])],
     extras_require={
         'test': ['coverage', 'mypy', 'pycodestyle', 'pytest>=3.9', 'pytest-cov'
                  ],
