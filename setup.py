@@ -15,7 +15,7 @@ with open('README.rst') as readme_file:
 
 setup(
     name='insilico-database',
-    version=version,
+    version=version['__version__'],
     description="Database for the ligands molecular properties",
     long_description=readme + '\n\n',
     author="Felipe Zapata",
