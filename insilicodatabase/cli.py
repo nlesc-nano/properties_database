@@ -3,7 +3,7 @@ import argparse
 import logging
 from argparse import Namespace
 
-from .interface import DatabaseConfig, store_dataframe_in_mongo
+from insilicodatabase.interface import DatabaseConfig, store_dataframe_in_mongo
 
 logger = logging.getLogger(__name__)
 
