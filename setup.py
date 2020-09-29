@@ -37,11 +37,6 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
-    entry_points={
-        'console_scripts': [
-            'call_database=insilicodatabase.cli:main'
-        ]
-    },
     install_requires=['pandas', 'pymongo', 'pyyaml>=5.1.1'],
     data_files=[('citation/insilicodatabase', ['CITATION.cff'])],
     extras_require={
