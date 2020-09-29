@@ -1,10 +1,9 @@
 """Module to read user input and perform the requested input action."""
 import argparse
 import logging
-
 from argparse import Namespace
-from .interface.mongodb_interface import (DatabaseConfig,
-                                          store_dataframe_in_mongo)
+
+from .interface import DatabaseConfig, store_dataframe_in_mongo
 
 logger = logging.getLogger(__name__)
 

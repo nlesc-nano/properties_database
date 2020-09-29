@@ -4,11 +4,12 @@ API
 ---
 .. autoclass:: DatabaseConfig
 .. autofunction:: connect_to_db
+.. autofunction:: fetch_properties_from_collection
 .. autofunction:: store_dataframe_in_mongo
 
 """
 
-__all__ = ["DatabaseConfig", "connect_to_db", "store_dataframe_in_mongo"]
+__all__ = ["DatabaseConfig", "connect_to_db", "fetch_properties_from_collection", "store_dataframe_in_mongo"]
 
 from typing import Any, Iterable, List, NamedTuple, Optional
 
