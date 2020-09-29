@@ -11,7 +11,7 @@ Welcome to insilico-database's documentation!
    :caption: Contents:
 
    includereadme
-
+   datalayout
 
 Indices and tables
 ==================

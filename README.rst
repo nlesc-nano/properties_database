@@ -1,19 +1,25 @@
 .. image:: https://github.com/nlesc-nano/insilico-database/workflows/build/badge.svg
    :target: https://github.com/nlesc-nano/insilico-database/actions
 
-################################################################################
+#################
 insilico-database
-################################################################################
+#################
 
-Database for the ligands molecular properties
+Interface to the database storing molecular properties
 
 Installation
 ************
 1. Install `Docker <https://www.docker.com/>`_
+
 2. Start the mongodb image:
 ::
+
    docker run -d -p 27017-27019:27017-27019 --name mongodb mongo:latest
 
+3. install the library
+::
+
+   pip install git+https://github.com/nlesc-nano/insilico-database.git@master
 
 Contributing
 ************
