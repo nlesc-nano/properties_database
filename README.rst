@@ -1,11 +1,13 @@
 .. image:: https://github.com/nlesc-nano/insilico-database/workflows/build/badge.svg
    :target: https://github.com/nlesc-nano/insilico-database/actions
-
+.. image:: https://readthedocs.org/projects/insilico-database/badge/?version=latest
+   :target: https://insilico-database.readthedocs.io/en/latest/?badge=latest
+	    
 #################
 insilico-database
 #################
 
-Interface to the database storing molecular properties
+Interface to the database storing molecular properties. see the `documentation <>`_.
 
 Installation
 ************
