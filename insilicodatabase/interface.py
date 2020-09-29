@@ -9,14 +9,15 @@ API
 
 """
 
-__all__ = ["DatabaseConfig", "connect_to_db", "fetch_properties_from_collection", "store_dataframe_in_mongo"]
+__all__ = ["DatabaseConfig", "connect_to_db",
+           "fetch_properties_from_collection", "store_dataframe_in_mongo"]
 
 from typing import Any, Iterable, List, NamedTuple, Optional
 
 from pymongo import MongoClient
 from pymongo.database import Database
 
-from ..dataframe import read_data_from_csv, sanitize_dataframe
+from .dataframe import read_data_from_csv, sanitize_dataframe
 
 
 class DatabaseConfig(NamedTuple):
