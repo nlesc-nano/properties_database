@@ -7,10 +7,11 @@
 insilico-database
 #################
 
-Interface to the database storing molecular properties. see the `documentation <>`_.
+Interface to the database storing molecular properties. see the `documentation <https://insilico-database.readthedocs.io/en/latest/index.html>`_.
 
 Installation
 ************
+
 1. Install `Docker <https://www.docker.com/>`_
 
 2. Start the mongodb image:
