@@ -64,3 +64,7 @@ The following schema defines how jobs are defined:
 Notice that the previous schema mirros the
 `GraphQL definition of Job in the server <https://github.com/nlesc-nano/insilico-server/blob/master/insilicoserver/sdl/Query.graphql>`_.
 
+
+.. Note::
+   * `Optional[T] <https://docs.python.org/3/library/typing.html#typing.Optional>`_  is a type that could be either ``None`` or some ``T``.
+   * References ``ref`` are implemented as `Mongodb DBRefs <https://docs.python.org/3/library/typing.html#typing.Optional>`_.
