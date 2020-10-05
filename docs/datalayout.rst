@@ -68,3 +68,4 @@ Notice that the previous schema mirros the
 .. Note::
    * `Optional[T] <https://docs.python.org/3/library/typing.html#typing.Optional>`_  is a type that could be either ``None`` or some ``T``.
    * References ``ref`` are implemented as `Mongodb DBRefs <https://docs.python.org/3/library/typing.html#typing.Optional>`_.
+   * Jobs are stored in a collections named like ``jobs_<property_collection_name>``.

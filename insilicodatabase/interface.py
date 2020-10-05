@@ -5,14 +5,17 @@ API
 .. autoclass:: DatabaseConfig
 .. autofunction:: connect_to_db
 .. autofunction:: fetch_properties_from_collection
+.. autofunction:: store_data_in_collection
 .. autofunction:: store_dataframe_in_mongo
 
 """
 
 __all__ = ["DatabaseConfig", "connect_to_db",
-           "fetch_properties_from_collection", "store_dataframe_in_mongo"]
+           "fetch_properties_from_collection",
+           "store_data_in_collection",
+           "store_dataframe_in_mongo"]
 
-from typing import Any, Iterable, List, NamedTuple, Optional
+from typing import Any, Iterable, List, Mapping, NamedTuple, Optional
 
 from pymongo import MongoClient
 from pymongo.database import Database
@@ -52,7 +55,19 @@ def fetch_properties_from_collection(db: Database, collection_name: str) -> Iter
     return collection.find({})
 
 
-def store_dataframe_in_mongo(db_config: DatabaseConfig, collection_name: str, path_csv: str, clean: bool = True) -> List[int]:
+def store_data_in_collection(db: Database, collection_name: str, data: Mapping[str, Any]) -> int:
+    """Store the given ``data`` into ``collection_name`` in ``db``."""
+    collection = db[collection_name]
+    entry = collection.find_one({"_id": data["_id"]})
+    if entry is not None:
+        return entry["_id"]
+
+    return collection.insert_one(data).inserted_id
+
+
+def store_dataframe_in_mongo(
+        db_config: DatabaseConfig, collection_name: str, path_csv: str,
+        clean: bool = True) -> List[int]:
     """Store a pandas dataframe in the database specified in `db_config`.
 
     Parameters
