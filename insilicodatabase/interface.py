@@ -4,7 +4,7 @@ API
 ---
 .. autoclass:: DatabaseConfig
 .. autofunction:: connect_to_db
-.. autofunction:: fetch_properties_from_collection
+.. autofunction:: fetch_data_from_collection
 .. autofunction:: fetch_one_from_collection
 .. autofunction:: store_data_in_collection
 .. autofunction:: store_dataframe_in_mongo
@@ -13,7 +13,7 @@ API
 
 __all__ = ["DatabaseConfig", "connect_to_db",
            "fetch_data_from_collection",
-           "fetch_properties_from_collection",
+           "fetch_one_from_collection",
            "store_data_in_collection",
            "store_dataframe_in_mongo"]
 
