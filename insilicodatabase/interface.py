@@ -8,6 +8,7 @@ API
 .. autofunction:: fetch_one_from_collection
 .. autofunction:: store_data_in_collection
 .. autofunction:: store_dataframe_in_mongo
+.. autofunction:: update_one_in_collection
 
 """
 
@@ -15,7 +16,8 @@ __all__ = ["DatabaseConfig", "connect_to_db",
            "fetch_data_from_collection",
            "fetch_one_from_collection",
            "store_data_in_collection",
-           "store_dataframe_in_mongo"]
+           "store_dataframe_in_mongo",
+           "update_one_in_collection"]
 
 from typing import Any, Dict, Iterable, List, Mapping, NamedTuple, Optional
 
@@ -67,13 +69,29 @@ def fetch_one_from_collection(
 
 def store_data_in_collection(
         mongodb: Database, collection_name: str, data: Mapping[str, Any]) -> int:
-    """Store the given ``data`` into ``collection_name`` in ``db``."""
+    """Store the given ``data`` into ``collection_name`` in ``db``.
+
+    If the object exists return the existing object.
+
+    Returns
+    -------
+    Object identifier
+
+    """
     collection = mongodb[collection_name]
     entry = collection.find_one({"_id": data["_id"]})
     if entry is not None:
         return entry["_id"]
 
     return collection.insert_one(data).inserted_id
+
+
+def update_one_in_collection(
+        mongodb: Database, collection_name: str, query: Dict[str, Any],
+        update: Dict[str, Any]) -> None:
+    """Update from ``collection_name`` entry that matches ``query`` using ``update``."""
+    collection = mongodb[collection_name]
+    collection.find_one_and_update(query, update)
 
 
 def store_dataframe_in_mongo(
@@ -89,7 +107,7 @@ def store_dataframe_in_mongo(
         Collection name
     path_df
         Path to the csv file containing the data
-    
+
     Returns
     -------
     List of the inserted objects indices
