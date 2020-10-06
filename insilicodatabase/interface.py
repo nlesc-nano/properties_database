@@ -11,11 +11,11 @@ API
 """
 
 __all__ = ["DatabaseConfig", "connect_to_db",
-           "fetch_properties_from_collection",
+           "fetch_data_from_collection",
            "store_data_in_collection",
            "store_dataframe_in_mongo"]
 
-from typing import Any, Iterable, List, Mapping, NamedTuple, Optional
+from typing import Any, Dict, Iterable, List, Mapping, NamedTuple, Optional
 
 from pymongo import MongoClient
 from pymongo.database import Database
@@ -49,10 +49,11 @@ def connect_to_db(db_config: DatabaseConfig) -> MongoClient:
     return client[db_config.db_name]
 
 
-def fetch_properties_from_collection(db: Database, collection_name: str) -> Iterable[Any]:
+def fetch_data_from_collection(
+        db: Database, collection_name: str, query: Dict[str, str] = {}) -> Iterable[Any]:
     """Return the properties stored in a given collection."""
     collection = db[collection_name]
-    return collection.find({})
+    return collection.find(query)
 
 
 def store_data_in_collection(db: Database, collection_name: str, data: Mapping[str, Any]) -> int:
