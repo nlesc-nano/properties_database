@@ -5,6 +5,7 @@ API
 .. autoclass:: DatabaseConfig
 .. autofunction:: connect_to_db
 .. autofunction:: fetch_properties_from_collection
+.. autofunction:: fetch_one_from_collection
 .. autofunction:: store_data_in_collection
 .. autofunction:: store_dataframe_in_mongo
 
@@ -12,6 +13,7 @@ API
 
 __all__ = ["DatabaseConfig", "connect_to_db",
            "fetch_data_from_collection",
+           "fetch_properties_from_collection",
            "store_data_in_collection",
            "store_dataframe_in_mongo"]
 
@@ -50,15 +52,23 @@ def connect_to_db(db_config: DatabaseConfig) -> MongoClient:
 
 
 def fetch_data_from_collection(
-        db: Database, collection_name: str, query: Dict[str, str] = {}) -> Iterable[Any]:
-    """Return the properties stored in a given collection."""
-    collection = db[collection_name]
+        mongodb: Database, collection_name: str, query: Dict[str, str] = {}) -> Iterable[Any]:
+    """Return the data stored in a given collection."""
+    collection = mongodb[collection_name]
     return collection.find(query)
 
 
-def store_data_in_collection(db: Database, collection_name: str, data: Mapping[str, Any]) -> int:
+def fetch_one_from_collection(
+        mongodb: Database, collection_name: str, query: Dict[str, str] = {}) -> Iterable[Any]:
+    """Return a single entry stored in a given collection."""
+    collection = mongodb[collection_name]
+    return collection.find_one(query)
+
+
+def store_data_in_collection(
+        mongodb: Database, collection_name: str, data: Mapping[str, Any]) -> int:
     """Store the given ``data`` into ``collection_name`` in ``db``."""
-    collection = db[collection_name]
+    collection = mongodb[collection_name]
     entry = collection.find_one({"_id": data["_id"]})
     if entry is not None:
         return entry["_id"]
