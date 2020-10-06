@@ -9,6 +9,7 @@ API
 .. autofunction:: store_data_in_collection
 .. autofunction:: store_dataframe_in_mongo
 .. autofunction:: update_one_in_collection
+.. autofunction:: update_many_in_collection
 
 """
 
@@ -17,7 +18,9 @@ __all__ = ["DatabaseConfig", "connect_to_db",
            "fetch_one_from_collection",
            "store_data_in_collection",
            "store_dataframe_in_mongo",
-           "update_one_in_collection"]
+           "update_one_in_collection",
+           "update_many_in_collection"
+           ]
 
 from typing import Any, Dict, Iterable, List, Mapping, NamedTuple, Optional
 
@@ -89,9 +92,17 @@ def store_data_in_collection(
 def update_one_in_collection(
         mongodb: Database, collection_name: str, query: Dict[str, Any],
         update: Dict[str, Any]) -> None:
-    """Update from ``collection_name`` entry that matches ``query`` using ``update``."""
+    """Update one from ``collection_name`` entry that matches ``query`` using ``update``."""
     collection = mongodb[collection_name]
-    collection.find_one_and_update(query, update)
+    collection.update(query, update)
+
+
+def update_many_in_collection(
+        mongodb: Database, collection_name: str, query: Dict[str, Any],
+        update: Dict[str, Any]) -> None:
+    """Update many from ``collection_name`` entry that matches ``query`` using ``update``."""
+    collection = mongodb[collection_name]
+    collection.update_many(query, update)
 
 
 def store_dataframe_in_mongo(
