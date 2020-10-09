@@ -7,6 +7,7 @@ API
 .. autofunction:: fetch_data_from_collection
 .. autofunction:: fetch_one_from_collection
 .. autofunction:: store_data_in_collection
+.. autofunction:: store_many_in_collection
 .. autofunction:: store_dataframe_in_mongo
 .. autofunction:: update_one_in_collection
 .. autofunction:: update_many_in_collection
@@ -17,12 +18,13 @@ __all__ = ["DatabaseConfig", "connect_to_db",
            "fetch_data_from_collection",
            "fetch_one_from_collection",
            "store_data_in_collection",
+           "store_many_in_collection",
            "store_dataframe_in_mongo",
            "update_one_in_collection",
            "update_many_in_collection"
            ]
 
-from typing import Any, Dict, Iterable, List, Mapping, NamedTuple, Optional
+from typing import Any, Dict, Iterable, List, NamedTuple, Optional
 
 from pymongo import MongoClient
 from pymongo.database import Database
@@ -32,7 +34,6 @@ from .dataframe import read_data_from_csv, sanitize_dataframe
 
 class DatabaseConfig(NamedTuple):
     """Data to store the database configuration."""
-
     db_name: str
     host: Optional[str] = "localhost"
     port: Optional[int] = 27017
@@ -71,7 +72,7 @@ def fetch_one_from_collection(
 
 
 def store_data_in_collection(
-        mongodb: Database, collection_name: str, data: Mapping[str, Any]) -> int:
+        mongodb: Database, collection_name: str, data: Dict[str, Any]) -> int:
     """Store the given ``data`` into ``collection_name`` in ``db``.
 
     If the object exists return the existing object.
@@ -87,6 +88,19 @@ def store_data_in_collection(
         return entry["_id"]
 
     return collection.insert_one(data).inserted_id
+
+
+def store_many_in_collection(
+        mongodb: Database, collection_name: str, data: List[Dict[str, Any]]) -> List[int]:
+    """Store the given ``data`` array into ``collection_name`` in ``db``.
+
+    Returns
+    -------
+    List of Object identifiers
+
+    """
+    collection = mongodb[collection_name]
+    return collection.insert_many(data).inserted_ids
 
 
 def update_one_in_collection(
