@@ -26,10 +26,9 @@ __all__ = ["DatabaseConfig", "connect_to_db",
 
 from typing import Any, Dict, Iterable, List, NamedTuple, Optional
 
+import pandas as pd
 from pymongo import MongoClient
 from pymongo.database import Database
-
-from .dataframe import read_data_from_csv, sanitize_dataframe
 
 
 class DatabaseConfig(NamedTuple):
@@ -140,8 +139,6 @@ def store_dataframe_in_mongo(
     """
     db = connect_to_db(db_config)
     collection = db[collection_name]
-    df = read_data_from_csv(path_csv)
-    if clean:
-        df = sanitize_dataframe(df)
+    df = pd.read_csv(path_csv, index_col=0)
 
     return collection.insert_many(df.to_dict("records")).inserted_ids
