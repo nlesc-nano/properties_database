@@ -4,7 +4,7 @@ API
 ---
 .. autoclass:: DatabaseConfig
 .. autofunction:: connect_to_db
-.. autofunction:: fetch_data_from_collection
+.. autofunction:: fetch_many_from_collection
 .. autofunction:: fetch_one_from_collection
 .. autofunction:: store_data_in_collection
 .. autofunction:: store_many_in_collection
@@ -15,7 +15,7 @@ API
 """
 
 __all__ = ["DatabaseConfig", "connect_to_db",
-           "fetch_data_from_collection",
+           "fetch_many_from_collection",
            "fetch_one_from_collection",
            "store_data_in_collection",
            "store_many_in_collection",
@@ -56,7 +56,7 @@ def connect_to_db(db_config: DatabaseConfig) -> MongoClient:
     return client[db_config.db_name]
 
 
-def fetch_data_from_collection(
+def fetch_many_from_collection(
         mongodb: Database, collection_name: str, query: Dict[str, str] = {}) -> Iterable[Any]:
     """Return the data stored in a given collection."""
     collection = mongodb[collection_name]
