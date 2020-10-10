@@ -6,7 +6,6 @@ API
 .. autofunction:: connect_to_db
 .. autofunction:: fetch_many_from_collection
 .. autofunction:: fetch_one_from_collection
-.. autofunction:: store_data_in_collection
 .. autofunction:: store_many_in_collection
 .. autofunction:: store_dataframe_in_mongo
 .. autofunction:: update_one_in_collection
@@ -17,7 +16,6 @@ API
 __all__ = ["DatabaseConfig", "connect_to_db",
            "fetch_many_from_collection",
            "fetch_one_from_collection",
-           "store_data_in_collection",
            "store_many_in_collection",
            "store_dataframe_in_mongo",
            "update_one_in_collection",
@@ -70,25 +68,6 @@ def fetch_one_from_collection(
     return collection.find_one(query)
 
 
-def store_data_in_collection(
-        mongodb: Database, collection_name: str, data: Dict[str, Any]) -> int:
-    """Store the given ``data`` into ``collection_name`` in ``db``.
-
-    If the object exists return the existing object.
-
-    Returns
-    -------
-    Object identifier
-
-    """
-    collection = mongodb[collection_name]
-    entry = collection.find_one({"_id": data["_id"]})
-    if entry is not None:
-        return entry["_id"]
-
-    return collection.insert_one(data).inserted_id
-
-
 def store_many_in_collection(
         mongodb: Database, collection_name: str, data: List[Dict[str, Any]]) -> List[int]:
     """Store the given ``data`` array into ``collection_name`` in ``db``.
@@ -136,7 +115,6 @@ def store_dataframe_in_mongo(
     List of the inserted objects indices
 
     """
-    collection = mongodb[collection_name]
     data = pd.read_csv(path_csv, index_col=0)
     data.reset_index(inplace=True)
     data.rename(columns={"index": "_id"}, inplace=True)
