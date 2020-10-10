@@ -2,7 +2,9 @@
    :target: https://github.com/nlesc-nano/insilico-database/actions
 .. image:: https://readthedocs.org/projects/insilico-database/badge/?version=latest
    :target: https://insilico-database.readthedocs.io/en/latest/?badge=latest
-	    
+.. image:: https://codecov.io/gh/nlesc-nano/insilico-database/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/nlesc-nano/insilico-database
+
 #################
 insilico-database
 #################
