@@ -107,7 +107,7 @@ def update_one_in_collection(
         update: Dict[str, Any]) -> None:
     """Update one from ``collection_name`` entry that matches ``query`` using ``update``."""
     collection = mongodb[collection_name]
-    collection.update(query, update)
+    collection.update_one(query, update)
 
 
 def update_many_in_collection(
@@ -119,8 +119,7 @@ def update_many_in_collection(
 
 
 def store_dataframe_in_mongo(
-        db_config: DatabaseConfig, collection_name: str, path_csv: str,
-        clean: bool = True) -> List[int]:
+        mongodb: MongoClient, collection_name: str, path_csv: str) -> List[int]:
     """Store a pandas dataframe in the database specified in `db_config`.
 
     Parameters
@@ -137,8 +136,9 @@ def store_dataframe_in_mongo(
     List of the inserted objects indices
 
     """
-    db = connect_to_db(db_config)
-    collection = db[collection_name]
-    df = pd.read_csv(path_csv, index_col=0)
+    collection = mongodb[collection_name]
+    data = pd.read_csv(path_csv, index_col=0)
+    data.reset_index(inplace=True)
+    data.rename(columns={"index": "_id"}, inplace=True)
 
-    return collection.insert_many(df.to_dict("records")).inserted_ids
+    return collection.insert_many(data.to_dict("records")).inserted_ids

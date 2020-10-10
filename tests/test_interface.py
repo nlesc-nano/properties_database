@@ -3,13 +3,15 @@
 
 from typing import List
 
-import pandas as pd
+import numpy as np
 from pymongo import MongoClient
 
 from insilicodatabase.interface import (DatabaseConfig, connect_to_db,
                                         fetch_many_from_collection,
                                         fetch_one_from_collection,
-                                        store_many_in_collection)
+                                        store_dataframe_in_mongo,
+                                        update_many_in_collection,
+                                        update_one_in_collection)
 
 from .utils_test import PATH_TEST
 
@@ -21,19 +23,19 @@ def add_candidates(mongodb: MongoClient) -> List[int]:
     """Check that the interface is working."""
     # read data from file
     path_data = PATH_TEST / "candidates.csv"
-    data = pd.read_csv(path_data, index_col=0)
-    data.reset_index(inplace=True)
-    data.rename(columns={"index": "_id"}, inplace=True)
 
-    return store_many_in_collection(
-        mongodb, COLLECTION_NAME, data.to_dict("records"))
+    return store_dataframe_in_mongo(mongodb, COLLECTION_NAME, path_data)
+
+def get_client():
+    """Return client to MongoDB."""
+    db_config = DatabaseConfig(DB_NAME)
+    return connect_to_db(db_config)
 
 
 def test_many_insertions():
     """Check that the interface is working."""
     # Connect to the database
-    db_config = DatabaseConfig(DB_NAME)
-    mongodb = connect_to_db(db_config)
+    mongodb = get_client()
 
     expected_ids = {76950, 43380, 26717, 70, 47561, 32800, 37021, 2449, 63555, 72987}
     try:
@@ -47,8 +49,7 @@ def test_many_insertions():
 
 def test_fetch_functions():
     """Check the fetch functions."""
-    db_config = DatabaseConfig(DB_NAME)
-    mongodb = connect_to_db(db_config)
+    mongodb = get_client()
     ids = set(add_candidates(mongodb))
     try:
         # Fetch indices must be the same than the inserted objects indices
@@ -57,6 +58,30 @@ def test_fetch_functions():
         index = ids.pop()
         one = fetch_one_from_collection(mongodb, COLLECTION_NAME, query={"_id": index})
         assert index == one["_id"]
+    finally:
+        collection = mongodb[COLLECTION_NAME]
+        collection.drop()
+
+
+def test_update_many():
+    """Check the update functions."""
+    mongodb = get_client()
+    ids = add_candidates(mongodb)
+    pi = 3.14159265
+    golden = 1.618
+    query_one = {"_id": {"$eq": ids[0]}}
+    query_many = {"_id": {"$in": ids}}
+    try:
+        # Update all the entries
+        update_many_in_collection(mongodb, COLLECTION_NAME, query_many, {"$set": {"scscore": pi}})
+        data = list(fetch_many_from_collection(mongodb, COLLECTION_NAME, query=query_many))
+        assert all(np.isclose(entry["scscore"], pi) for entry in data)
+
+        # Update a single entry
+        update_one_in_collection(mongodb, COLLECTION_NAME, query_one, {"$set": {"scscore": golden}})
+        one = fetch_one_from_collection(mongodb, COLLECTION_NAME, query_one)
+        assert np.isclose(one["scscore"], golden)
+
     finally:
         collection = mongodb[COLLECTION_NAME]
         collection.drop()
