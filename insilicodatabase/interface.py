@@ -141,4 +141,4 @@ def store_dataframe_in_mongo(
     data.reset_index(inplace=True)
     data.rename(columns={"index": "_id"}, inplace=True)
 
-    return collection.insert_many(data.to_dict("records")).inserted_ids
+    return store_many_in_collection(mongodb, collection_name, data.to_dict("records"))
