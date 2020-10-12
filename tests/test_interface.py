@@ -10,6 +10,7 @@ from insilicodatabase.interface import (DatabaseConfig, connect_to_db,
                                         fetch_many_from_collection,
                                         fetch_one_from_collection,
                                         store_dataframe_in_mongo,
+                                        store_one_in_collection,
                                         update_many_in_collection,
                                         update_one_in_collection)
 
@@ -26,10 +27,26 @@ def add_candidates(mongodb: MongoClient) -> List[int]:
 
     return store_dataframe_in_mongo(mongodb, COLLECTION_NAME, path_data)
 
+
 def get_client():
     """Return client to MongoDB."""
     db_config = DatabaseConfig(DB_NAME)
     return connect_to_db(db_config)
+
+
+def test_one_insertion():
+    """Check that a single entry is stored correctly."""
+    mongodb = get_client()
+
+    index = 314159265
+    data = {"_id": index, "value": "foo", "bar": "tux"}
+
+    try:
+        reply = store_one_in_collection(mongodb, COLLECTION_NAME, data)
+        assert index == reply
+    finally:
+        collection = mongodb[COLLECTION_NAME]
+        collection.drop()
 
 
 def test_many_insertions():
