@@ -7,6 +7,7 @@ API
 .. autofunction:: fetch_many_from_collection
 .. autofunction:: fetch_one_from_collection
 .. autofunction:: store_many_in_collection
+.. autofunction:: store_one_in_collection
 .. autofunction:: store_dataframe_in_mongo
 .. autofunction:: update_one_in_collection
 .. autofunction:: update_many_in_collection
@@ -17,6 +18,7 @@ __all__ = ["DatabaseConfig", "connect_to_db",
            "fetch_many_from_collection",
            "fetch_one_from_collection",
            "store_many_in_collection",
+           "store_one_in_collection",
            "store_dataframe_in_mongo",
            "update_one_in_collection",
            "update_many_in_collection"
@@ -79,6 +81,19 @@ def store_many_in_collection(
     """
     collection = mongodb[collection_name]
     return collection.insert_many(data).inserted_ids
+
+
+def store_one_in_collection(
+        mongodb: Database, collection_name: str, data: Dict[str, Any]) -> int:
+    """Store the given ``data`` Dict into ``collection_name`` in ``db``.
+
+    Returns
+    -------
+    List of Object identifiers
+
+    """
+    collection = mongodb[collection_name]
+    return collection.insert_one(data).inserted_id
 
 
 def update_one_in_collection(
