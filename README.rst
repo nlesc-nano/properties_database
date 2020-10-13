@@ -14,14 +14,14 @@ Interface to the database storing molecular properties. see the `documentation <
 Installation
 ************
 
-1. Install `Docker <https://www.docker.com/>`_
+1.🐳 Install `Docker <https://www.docker.com/>`_
 
-2. Start the mongodb image:
+2. 🚀 Start the mongodb image (Use a strong password)
 ::
 
-   docker run -d -p 27017-27019:27017-27019 --name mongodb mongo:latest
+   docker run -d   -e "MONGO_INITDB_ROOT_USERNAME=admin" -e "MONGO_INITDB_ROOT_PASSWORD=strongPasswd" -p 27017-27019:27017-27019 --name mongodbauth mongo:latest
 
-3. install the library
+3. 🛠  install the library
 ::
 
    pip install git+https://github.com/nlesc-nano/insilico-database.git@master

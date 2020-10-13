@@ -36,6 +36,8 @@ class DatabaseConfig(NamedTuple):
     db_name: str
     host: Optional[str] = "localhost"
     port: Optional[int] = 27017
+    username: Optional[str] = None
+    password: Optional[str] = None
 
 
 def connect_to_db(db_config: DatabaseConfig) -> MongoClient:
@@ -51,7 +53,9 @@ def connect_to_db(db_config: DatabaseConfig) -> MongoClient:
         MongoClient
 
     """
-    client = MongoClient(db_config.host, db_config.port)
+    client = MongoClient(
+        host=db_config.host, port=db_config.port,
+        username=db_config.username, password=db_config.password)
 
     return client[db_config.db_name]
 
